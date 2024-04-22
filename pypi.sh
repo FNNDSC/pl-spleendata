@@ -28,7 +28,7 @@ if (( $# != 1 )) ; then
 fi
 
 VER=$1
-
+DIR=$PWD
 git commit -am "v${VER}"
 git push origin main 
 git tag $VER
@@ -36,5 +36,6 @@ git push origin --tags
 
 #rstcheck README.rst
 python3 setup.py sdist
+CD $DIR
 twine upload dist/$(basename $(pwd))-${VER}.tar.gz
 
