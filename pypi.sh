@@ -29,6 +29,7 @@ fi
 
 VER=$1
 DIR=$PWD
+pandoc --from=markdown --to=rst --output=README.rst README.md
 git commit -am "v${VER}"
 git push origin main 
 git tag $VER
