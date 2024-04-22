@@ -4,26 +4,48 @@
 [![MIT License](https://img.shields.io/github/license/fnndsc/pl-spleendata)](https://github.com/FNNDSC/pl-spleendata/blob/main/LICENSE)
 [![ci](https://github.com/FNNDSC/pl-spleendata/actions/workflows/ci.yml/badge.svg)](https://github.com/FNNDSC/pl-spleendata/actions/workflows/ci.yml)
 
-`pl-spleendata` is a [_ChRIS_](https://chrisproject.org/)
-_ds_ plugin which takes in ...  as input files and
-creates ... as output files.
+`pl-spleendata` is a [_ChRIS_](https://chrisproject.org/) _FS_ plugin which downloads an exemplar spleen dataset useful for training and inference experiments.
 
 ## Abstract
 
-...
+This is a simple _FS_ plugin suitable for training and inference on 3D spleen NiFTI volumes, as part of the [MONAI spleen segmentation exemplar notebook](https://github.com/Project-MONAI/tutorials/blob/main/3d_segmentation/spleen_segmentation_3d.ipynb).
+
+By default, the download is pretty big -- 1.2Gb, so make sure you have time and space. It is possible to post-download prune this. For example, if you are only interested in _training_, you can use a `--trainingOnly` flag which will prune out the 43Mb of testing NiFTI volumes. Conversely, if you are just interested in _inference_, the `--testingOnly` will remove the post download 1.2Gb of training data, saving lots of space.
+
+You still need to download the whole set, however, before you can prune.
 
 ## Installation
 
-`pl-spleendata` is a _[ChRIS](https://chrisproject.org/) plugin_, meaning it can
-run from either within _ChRIS_ or the command-line.
+`pl-spleendata` is a _[ChRIS](https://chrisproject.org/) plugin_, meaning it can run from either within _ChRIS_ or the command-line.
 
 ## Local Usage
 
-To get started with local command-line usage, use [Apptainer](https://apptainer.org/)
-(a.k.a. Singularity) to run `pl-spleendata` as a container:
+### On the metal
+
+If you have checked out the repo, you can simply run `spleendata` using
 
 ```shell
-apptainer exec docker://fnndsc/pl-spleendata spleendata [--args values...] input/ output/
+source venv/bin/activate
+pip install -U ./ 
+spleendata output/
+```
+
+### PyPI
+
+Alternatively, you can just do a 
+
+```shell
+pip install spleendata
+```
+
+to get directly from PyPI.
+
+### apptainer
+
+The recommended way is to use [Apptainer](https://apptainer.org/) (a.k.a. Singularity) to run `pl-spleendata` as a container:
+
+```shell
+apptainer exec docker://fnndsc/pl-spleendata spleendata [--args values...] output/
 ```
 
 To print its available options, run:
@@ -34,13 +56,10 @@ apptainer exec docker://fnndsc/pl-spleendata spleendata --help
 
 ## Examples
 
-`spleendata` requires two positional arguments: a directory containing
-input data, and a directory where to create output data.
-First, create the input directory and move input data into it.
+`spleendata`, being a ChRIS _FS_ plugin, only requires one positional argument: a directory that will contain the output data. Simply create an empty `output`.
 
 ```shell
-mkdir incoming/ outgoing/
-mv some.dat other.dat incoming/
+mkdir output
 apptainer exec docker://fnndsc/pl-spleendata:latest spleendata [--args] incoming/ outgoing/
 ```
 
