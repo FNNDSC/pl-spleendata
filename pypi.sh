@@ -30,7 +30,7 @@ fi
 VER=$1
 
 git commit -am "v${VER}"
-git push origin master
+git push origin main 
 git tag $VER
 git push origin --tags
 
