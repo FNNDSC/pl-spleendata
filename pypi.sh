@@ -36,6 +36,7 @@ git push origin --tags
 
 #rstcheck README.rst
 python3 setup.py sdist
-CD $DIR
-twine upload dist/$(basename $(pwd))-${VER}.tar.gz
+cd $DIR
+twine upload dist/spleendata-${VER}.tar.gz
+
 
