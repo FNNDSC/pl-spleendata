@@ -20,7 +20,7 @@ def get_version(rel_path: str) -> str:
 
 
 def readme():
-    with open("README.md") as f:
+    with open("README.rst") as f:
         return f.read()
 
 
