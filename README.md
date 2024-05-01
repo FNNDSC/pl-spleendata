@@ -8,7 +8,7 @@
 
 ## Abstract
 
-This is a simple _FS_ plugin suitable for training and inference on 3D spleen NiFTI volumes, as part of the [MONAI spleen segmentation exemplar notebook](https://github.com/Project-MONAI/tutorials/blob/main/3d_segmentation/spleen_segmentation_3d.ipynb).
+This is a simple _FS_ plugin suitable for training and inference on 3D spleen NiFTI volumes, as part of the [MONAI spleen segmentation exemplar notebook](https://github.com/Project-MONAI/tutorials/blob/main/3d_segmentation/spleen_segmentation_3d.ipynb). _FS_ plugins are suitable as root nodes of ChRIS compute trees, i.e. the data node from which all processing continues. If you need to inject spleen data into a non-root tree node, use the [companion _DS_ spleen data node](https://github.com/FNNDSC/pl-spleendatads).
 
 By default, the download is pretty big -- 1.2Gb, so make sure you have time and space. It is possible to post-download prune this. For example, if you are only interested in _training_, you can use a `--trainingOnly` flag which will prune out the 43Mb of testing NiFTI volumes. Conversely, if you are just interested in _inference_, the `--testingOnly` will remove the post download 1.2Gb of training data, saving lots of space.
 
@@ -26,13 +26,13 @@ If you have checked out the repo, you can simply run `spleendata` using
 
 ```shell
 source venv/bin/activate
-pip install -U ./ 
+pip install -U ./
 spleendata output/
 ```
 
 ### PyPI
 
-Alternatively, you can just do a 
+Alternatively, you can just do a
 
 ```shell
 pip install spleendata
